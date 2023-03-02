@@ -43,22 +43,27 @@ export const conversationsSlice = createSlice({
         };
       },
     },
-    sendMessage: {
+    addMessageToConversation: {
       reducer(state, action) {
         state.conversations.forEach((conversation) => {
-          if (conversation.recipient === action.payload.recipientId) {
+          if (
+            conversation.recipient === action.payload.recipientId ||
+            conversation.recipient === action.payload.senderId
+          ) {
             conversation.messages.push({
               text: action.payload.text,
-              fromMe: true,
+              recipientId: action.payload.recipientId,
+              senderId: action.payload.senderId,
             });
           }
         });
       },
-      prepare(recipientId, text) {
+      prepare(recipientId, text, senderId) {
         return {
           payload: {
             recipientId: recipientId,
             text: text,
+            senderId: senderId,
           },
         };
       },
@@ -66,7 +71,10 @@ export const conversationsSlice = createSlice({
   },
 });
 
-export const { addNewConversation, setSelectedConversation, sendMessage } =
-  conversationsSlice.actions;
+export const {
+  addNewConversation,
+  setSelectedConversation,
+  addMessageToConversation,
+} = conversationsSlice.actions;
 
 export default conversationsSlice.reducer;

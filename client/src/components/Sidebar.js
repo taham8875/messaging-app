@@ -73,13 +73,6 @@ export default function Sidebar() {
                         contacts.find(
                           (contact) => contact.id === conversation.recipient
                         ).name
-
-                        // .map(
-                        //   (recipient) =>
-                        //     contacts.find((contact) => contact.id === recipient)
-                        //       .name
-                        // )
-                        // .join(", ")
                       }
                     </ListGroup.Item>
                   ))}
